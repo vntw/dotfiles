@@ -6,6 +6,7 @@ tap 'caskroom/versions'
 
 brew 'bash'
 brew 'bash-completion2'
+brew 'vim' --override-system-vi --with-python3
 brew 'git'
 brew 'hub'
 brew 'ansible'
@@ -14,6 +15,8 @@ brew 'mongodb'
 brew 'node'
 brew 'redis'
 brew 'gearman'
+brew 'npm'
+brew 'docker-machine'
 
 brew 'john'
 brew 'tree'

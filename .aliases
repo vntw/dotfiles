@@ -16,12 +16,15 @@ alias j="jobs"
 
 # Git
 alias gs="git status"
-alias ga="git add"
 alias gp="git push"
-alias gpr="git pull --rebase"
+alias gb="git branch"
+alias ga="git add"
 alias gap="git add -p"
+alias gpr="git pull --rebase"
 alias gci="git commit"
+alias gcb="git clean-branches"
 alias gco="git checkout"
+alias gfp="git fetch -p"
 
 # Composer
 alias c="composer"

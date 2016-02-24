@@ -30,3 +30,5 @@ export MANPAGER='less -X';
 # Golang
 export GOPATH=~/Development/Go
 export GOBIN=~/Development/Go/bin
+
+export PATH=$GOBIN:/usr/local/bin:/usr/local/sbin:~/bin:$PATH

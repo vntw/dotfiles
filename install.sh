@@ -2,7 +2,8 @@
 
 cd "$(dirname "${BASH_SOURCE}")";
 
-#git pull origin master;
+# git pull origin master;
+# git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 function hostname() {
   echo "Enter the hostname for this machine:"
@@ -83,7 +84,17 @@ function install() {
 }
 
 function helpmenu() {
-  echo "halp!"
+  cat << EOF
+Usage: ./install.sh [--only-dotfiles] [--help]
+
+Without any options, this will perform multiple tasks:
+  * Set the hostname
+  * Create default directories
+  * Install dotfiles
+  * Install and update brew with packages from the Brewfile
+
+--only-dotfiles will (surprise) only install the dotfiles, nothing else.
+EOF
 }
 
 [ "$USER" = "root" ] && abort "Run this as yourself, not root."
