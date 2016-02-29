@@ -32,3 +32,6 @@ export GOPATH=~/Development/Go
 export GOBIN=~/Development/Go/bin
 
 export PATH=$GOBIN:/usr/local/bin:/usr/local/sbin:~/bin:$PATH
+
+# Init the Ruby env
+eval "$(rbenv init -)"
