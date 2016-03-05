@@ -40,6 +40,7 @@ set guioptions-=l
 set guioptions-=LS
 
 let mapleader = ","
+
 "set scrolloff=3
 set visualbell
 "set cursorline
@@ -68,6 +69,14 @@ set colorcolumn=120
 " split windows
 nnoremap <leader>w <C-w>v<C-w>l
 nmap <leader>u :UltiSnipsEdit<CR>
+
+" NERDTree
+nmap <leader>m :NERDTreeToggle<CR>
+nmap <leader>n :tabnext<CR>
+nmap <F2> :NERDTreeFind<CR>
+
+" golang
+au FileType go nmap <Leader>gd <Plug>(go-doc)
 
 " map .spec to coffee filetype
 au Bufread,BufNewFile *.spec set filetype=coffee
