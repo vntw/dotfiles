@@ -23,7 +23,7 @@ function hostname() {
 
 function directories() {
   echo "Creating default directories..."
-	mkdir -p ~/Development/Go
+  mkdir -p ~/Development/Go
   mkdir -p ~/.ssh/
   mkdir -p ~/bin
 }
