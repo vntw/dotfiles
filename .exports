@@ -27,6 +27,9 @@ export LESS_TERMCAP_md="${yellow}";
 # Don’t clear the screen after quitting a manual page.
 export MANPAGER='less -X';
 
+# Disable CocoaPods stats tracking
+export COCOAPODS_DISABLE_STATS=true
+
 # Golang
 export GOPATH=~/Development/Go
 export GOBIN=~/Development/Go/bin

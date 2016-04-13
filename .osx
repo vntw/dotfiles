@@ -777,6 +777,12 @@ defaults write com.twitter.twitter-mac ESCClosesComposeWindow -bool true
 defaults write com.twitter.twitter-mac ShowFullNames -bool true
 
 ###############################################################################
+# Seil																		  #
+# #############################################################################
+defaults write org.pqrs.Seil sysctl -dict enable_capslock 1 keycode_capslock 53
+source ./_nosync/keyboard-defaults.sh
+
+###############################################################################
 # Spectacle.app                                                               #
 ###############################################################################
 
