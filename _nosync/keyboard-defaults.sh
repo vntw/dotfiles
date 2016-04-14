@@ -12,20 +12,20 @@ fi;
 
 echo "Generated the following domains:"
 for domain in $domains; do
-  echo " - $domain"
+	echo " - $domain"
 done;
 
 read -p "Proceed? (Y/n) " -n 1;
 echo "";
 if [[ $REPLY =~ ^[Nn] ]]; then
-  echo "Aborted."
-  exit 0
+	echo "Aborted."
+	exit 0
 fi;
 
 echo "Writing domains:"
 for domain in $domains; do
-  echo " - $domain"
-  defaults -currentHost write -g $domain -array '<dict><key>HIDKeyboardModifierMappingDst</key><integer>-1</integer><key>HIDKeyboardModifierMappingSrc</key><integer>0</integer></dict>'
+	echo " - $domain"
+	defaults -currentHost write -g $domain -array '<dict><key>HIDKeyboardModifierMappingDst</key><integer>-1</integer><key>HIDKeyboardModifierMappingSrc</key><integer>0</integer></dict>'
 done
 
 echo ""
