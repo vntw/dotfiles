@@ -2,9 +2,6 @@
 
 cd "$(dirname "${BASH_SOURCE}")";
 
-# git pull origin master;
-# git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
 function hostname() {
 	echo "Enter the hostname for this machine:"
 	read hostname
@@ -29,6 +26,12 @@ function directories() {
 }
 
 function dotfiles() {
+	if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
+		echo "Downloading Vundle.vim..."
+		git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+		vim +PluginInstall +qall
+	fi
+
 	echo "Installing dotfiles..."
 	rsync --exclude ".git/" --exclude "_nosync/" --exclude ".DS_Store" --exclude "install.sh" --exclude "test.sh" --exclude "README.md" -avh --no-perms . ~;
 
