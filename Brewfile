@@ -8,6 +8,8 @@ brew 'bash'
 brew 'bash-completion2'
 brew 'vim' --override-system-vi --with-python3
 brew 'git'
+brew 'mercurial'
+brew 'bazaar'
 brew 'hub'
 brew 'ansible'
 brew 'curl'
