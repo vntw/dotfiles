@@ -39,9 +39,11 @@ function dotfiles() {
 	source ~/.bash_profile;
 }
 
-function brew() {
+function homebrew() {
 	echo "Checking for Brew installation..."
-	if [ -z "which brew" ] ; then
+	command -v brew >/dev/null 2>&1
+
+	if [ $? != 0 ] ; then
 		echo "Installing Brew..."
 		ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	else
@@ -81,7 +83,7 @@ function install() {
 
 	dotfiles;
 
-	brew;
+	homebrew;
 
 	echo "> Successfully installed!"
 }
@@ -124,7 +126,7 @@ install;
 unset hostname;
 unset directories;
 unset dotfiles;
-unset brew;
+unset homebrew;
 unset helpmenu;
 unset install;
 unset warning;
