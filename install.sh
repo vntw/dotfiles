@@ -2,22 +2,6 @@
 
 cd "$(dirname "${BASH_SOURCE}")";
 
-function hostname() {
-	echo "Enter the hostname for this machine:"
-	read hostname
-
-	if [ -z "$hostname" ] ; then
-		echo "You must specify a hostname!"
-		exit 1
-	fi
-
-	echo "Setting the hostname to $hostname..."
-	sudo scutil --set ComputerName $hostname
-	sudo scutil --set HostName $hostname
-	sudo scutil --set LocalHostName $hostname
-	sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string $hostname
-}
-
 function directories() {
 	echo "Creating default directories..."
 	mkdir -p ~/Development/Go
@@ -77,8 +61,6 @@ function warning() {
 function install() {
 	sudo -v
 
-	hostname;
-
 	directories;
 
 	dotfiles;
@@ -93,7 +75,6 @@ function helpmenu() {
 Usage: ./install.sh [--only-dotfiles] [--help]
 
 Without any options, this will perform multiple tasks:
-  * Set the hostname
   * Create default directories
   * Install dotfiles
   * Install and update brew with packages from the Brewfile
@@ -123,7 +104,6 @@ done
 warning;
 install;
 
-unset hostname;
 unset directories;
 unset dotfiles;
 unset homebrew;
