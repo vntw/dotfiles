@@ -7,6 +7,7 @@ tap 'caskroom/versions'
 brew 'bash'
 brew 'bash-completion2'
 brew 'vim', args: ['override-system-vi', 'with-python3']
+brew 'go', args: ['with-cc-all']
 brew 'git'
 brew 'mercurial'
 brew 'bazaar'
@@ -40,6 +41,7 @@ brew 'composer'
 # Casks
 cask 'iterm2'
 cask 'smoothmouse'
+cask 'spectacle'
 cask 'atom'
 cask 'dropbox'
 cask 'flux'
