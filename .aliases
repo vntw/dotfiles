@@ -163,3 +163,6 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"
+
+# GPG2 to GPG for the lazy
+alias gpg='gpg2'

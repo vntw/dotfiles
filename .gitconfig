@@ -1,6 +1,7 @@
 [user]
 	name = venyii
-	email = schefflor@gmail.com
+	email = codesguard@cersei.de
+	signingkey = 90779576
 
 [alias]
 
@@ -141,6 +142,12 @@
 	# installations. To use `simple` instead, add this to your `~/.extra` file:
 	# `git config --global push.default simple`. See http://git.io/mMah-w.
 	default = current
+
+[commit]
+	gpgsign = true
+
+[gpg]
+	program = gpg2
 
 # URL shorthands
 
