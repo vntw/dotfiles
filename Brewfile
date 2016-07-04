@@ -1,9 +1,6 @@
 tap 'homebrew/dupes'
 tap 'homebrew/versions'
 
-tap 'caskroom/cask'
-tap 'caskroom/versions'
-
 brew 'bash'
 brew 'bash-completion2'
 brew 'vim', args: ['override-system-vi', 'with-python3']
@@ -23,7 +20,6 @@ brew 'npm'
 brew 'docker-machine'
 brew 'rbenv'
 brew 'cloc'
-
 brew 'john'
 brew 'tree'
 brew 'fcrackzip'
@@ -39,6 +35,9 @@ brew 'php70-redis'
 brew 'composer'
 
 # Casks
+tap 'caskroom/cask'
+tap 'caskroom/versions'
+
 cask 'iterm2'
 cask 'smoothmouse'
 cask 'spectacle'
