@@ -21,6 +21,7 @@ brew 'gearman'
 brew 'npm'
 brew 'docker-machine'
 brew 'rbenv'
+brew 'pinentry-mac'
 
 brew 'john'
 brew 'tree'
