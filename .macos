@@ -306,6 +306,12 @@ sudo chflags nohidden /Volumes
 # Dock, Dashboard, and hot corners                                            #
 ###############################################################################
 
+# Configure date format in menu bar
+defaults write com.apple.menuextra.clock DateFormat -string "EEE d MMM  HH:mm:ss"
+
+# Show battery percentage in menu bar
+defaults write com.apple.menuextra.battery ShowPercent -string "YES"
+
 # Enable highlight hover effect for the grid view of a stack (Dock)
 defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
