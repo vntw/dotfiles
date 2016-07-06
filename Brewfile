@@ -23,6 +23,7 @@ brew 'cloc'
 brew 'john'
 brew 'tree'
 brew 'fcrackzip'
+brew 'ssh-copy-id'
 
 # PHP
 tap 'homebrew/php'
