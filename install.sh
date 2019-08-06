@@ -1,89 +1,128 @@
 #!/usr/bin/env bash
 
-cd "$(dirname "${BASH_SOURCE}")";
+set -eu
+
+[ "$USER" = "root" ] && abort "Run this as yourself, not root."
+
+DIR="$(cd `dirname $0` && pwd)"
+cd "$DIR"
+
+DEFAULT_DIRS=(~/bin ~/dev/go ~/.gnupg ~/.ssh)
+
+function info() {
+	echo -e "\n\033[0;32m➤ $1\033[0m"
+}
 
 function directories() {
-	echo "Creating default directories..."
-	mkdir -p ~/Development/Go
-	mkdir -p ~/.ssh/
-	mkdir -p ~/bin
+	info "Creating default directories…"
+	for d in "${DEFAULT_DIRS[@]}"; do
+		echo "$d"
+		mkdir -p "$d"
+	done
 }
 
 function dotfiles() {
-	if [ ! -d ~/.vim/bundle/Vundle.vim ]; then
-		echo "Downloading Vundle.vim..."
-		git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-		vim +PluginInstall +qall
-	fi
+	info "Linking dotfiles…"
+	for f in $(find "$DIR/home" -type f) ; do
+		echo "$f to ~/${f#"$DIR/home/"}"
+		ln -sF "$f" ~/${f#"$DIR/home/"}
+	done
+}
 
-	echo "Installing dotfiles..."
-	rsync --exclude ".git/" --exclude "_nosync/" --exclude ".DS_Store" --exclude "install.sh" --exclude "test.sh" --exclude "README.md" -avh --no-perms . ~;
+function settings() {
+	info "Linking app settings…"
+	ln -sF $DIR/settings/spectacle/shortcuts.json ~/Library/Application\ Support/Spectacle/Shortcuts.json
+	ln -sF $DIR/settings/vscode/*.json ~/Library/Application\ Support/Code/User/
+}
 
-	echo "Loading dotfiles..."
-	source ~/.bash_profile;
+function macos() {
+	info "Applying macOS settings…"
+	./macos
 }
 
 function homebrew() {
-	echo "Checking for Brew installation..."
+	info "Installing Brew…"
 	command -v brew >/dev/null 2>&1
 
-	if [ $? != 0 ] ; then
-		echo "Installing Brew..."
+	if [ $? != 0 ]; then
 		ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	else
-		echo "Brew is already installed!"
+		echo "Brew already installed"
+		return
 	fi;
 
-	echo "Updating and upgrading Brew packages..."
-	brew update
-	brew upgrade
-
-	echo "Bundling Brewfile..."
-	brew bundle --file=~/Brewfile
-
+	info "Bundling Brewfile…"
+	brew bundle --file=./Brewfile
 	brew cleanup
 
-	if ! grep -Fxq "/usr/local/bin/bash" /etc/shells; then
-		echo "Adding the new Bash shell to the known shells..."
-		sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells'
-		chsh -s /usr/local/bin/bash
-	fi;
+	# change shell to updated brew zsh
+	local shell_path="/usr/local/bin/zsh"
+	info "Changing shell to '$shell_path'"
+	if [ $SHELL != $shell_path ]; then
+		if ! grep "$shell_path" /etc/shells > /dev/null 2>&1 ; then
+			sudo sh -c "echo $shell_path >> /etc/shells"
+		fi
+		chsh -s "$shell_path"
+	fi
 }
 
-function warning() {
-	read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1;
-	echo "";
-	if [[ $REPLY =~ ^[Nn] ]]; then
-		exit
-	fi;
+function zsh() {
+	info "Setting up zsh"
+
+	if [ -d ~/.oh-my-zsh ]; then
+		echo "zsh already installed"
+		return
+	fi
+
+	git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
+	curl -L https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete.ttf -o ~/Library/Fonts/Sauce\ Code\ Pro\ Nerd\ Font\ Complete.ttf
+	curl -L https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono.ttf -o ~/Library/Fonts/Sauce\ Code\ Pro\ Nerd\ Font\ Complete\ Mono.ttf
+}
+
+function privrepo() {
+	info "Installing \033[0;31mprivate\033[32m repository"
+
+	if [ ! -d ~/.dotfiles-private ]; then
+		git clone git@github.com:venyii/dotfiles-private.git ~/.dotfiles-private
+	else
+		echo "Repository already checked out"
+	fi
+
+	~/.dotfiles-private/install.sh
 }
 
 function install() {
 	sudo -v
 
+	privrepo;
 	directories;
-
-	dotfiles;
-
 	homebrew;
+	dotfiles;
+	zsh;
+	settings;
+	macos;
+	success;
+}
 
-	echo "> Successfully installed!"
+function linksonly() {
+	settings;
+	privrepo;
+	dotfiles;
+	success;
+}
+
+function success() {
+	info "Successfully installed!"
 }
 
 function helpmenu() {
 	cat << EOF
-Usage: ./install.sh [--only-dotfiles] [--help]
+Usage: ./install.sh [--help|-h] [--only-links]
 
-Without any options, this will perform multiple tasks:
-  * Create default directories
-  * Install dotfiles
-  * Install and update brew with packages from the Brewfile
-
---only-dotfiles will (surprise) only install the dotfiles, nothing else.
+--only-links Only create symlinks for settings/public/private repo
 EOF
 }
-
-[ "$USER" = "root" ] && abort "Run this as yourself, not root."
 
 while [ ! $# -eq 0 ]
 do
@@ -92,21 +131,24 @@ do
 			helpmenu;
 			exit
 			;;
-		--only-dotfiles)
-			warning;
-			dotfiles;
+		--only-links)
+			linksonly;
 			exit
 			;;
 	esac
 	shift
 done
 
-warning;
 install;
 
+unset success;
+unset linksonly;
+unset privrepo;
 unset directories;
+unset macos;
 unset dotfiles;
+unset zsh;
 unset homebrew;
 unset helpmenu;
 unset install;
-unset warning;
+unset info;

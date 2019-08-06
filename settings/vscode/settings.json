@@ -1,0 +1,21 @@
+{
+    "workbench.startupEditor": "newUntitledFile",
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false,
+    "files.trimTrailingWhitespace": true,
+    "go.formatTool": "gofmt",
+    "workbench.colorCustomizations": {
+      "statusBar.background": "#333",
+      "statusBar.noFolderBackground": "#333"
+    },
+    "files.associations": {
+      "Dockerfile.*": "dockerfile"
+    },
+    "files.insertFinalNewline": true,
+    "explorer.confirmDragAndDrop": false,
+    "go.autocompleteUnimportedPackages": true,
+    "editor.multiCursorModifier": "alt",
+    "go.useLanguageServer": true,
+    "liveServer.settings.donotShowInfoMsg": true,
+    "editor.minimap.enabled": false
+  }
