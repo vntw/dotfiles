@@ -12,6 +12,7 @@ alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias vim="nvim"
 alias g="git"
+alias k="kubectl"
 
 # Git
 alias gs="git status"
