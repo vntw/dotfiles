@@ -53,7 +53,7 @@ setopt HIST_REDUCE_BLANKS
 
 zstyle ':completion:*' special-dirs true
 
-for file in ~/.{exports,aliases,functions}; do
+for file in ~/.{aliases,exports,functions,inits}; do
 	source "$file";
 done;
 unset file;
