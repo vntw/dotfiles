@@ -36,5 +36,4 @@ cask 'visual-studio-code'
 cask 'vlc'
 
 mas "Amphetamine", id: 937984704
-mas "Wunderlist", id: 410628904
 mas "Xcode", id: 497799835

@@ -130,8 +130,5 @@ for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
 	alias "$method"="lwp-request -m '$method'"
 done
 
-# Lock the screen (when going AFK)
-alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
-
 # Start the xcode iOS Simulator
 alias iossimulator="open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app"
