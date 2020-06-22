@@ -7,18 +7,14 @@ set -eu
 DIR="$(cd `dirname $0` && pwd)"
 cd "$DIR"
 
-DEFAULT_DIRS=(~/bin ~/dev/go ~/.gnupg ~/.ssh)
-
 function info() {
 	echo -e "\n\033[0;32m➤ $1\033[0m"
 }
 
 function directories() {
 	info "Creating default directories…"
-	for d in "${DEFAULT_DIRS[@]}"; do
-		echo "$d"
-		mkdir -p "$d"
-	done
+	mkdir -p ~/bin ~/dev/go ~/.gnupg ~/.ssh
+	chmod 0700 ~/.gnupg ~/.ssh
 }
 
 function dotfiles() {
@@ -31,7 +27,11 @@ function dotfiles() {
 
 function settings() {
 	info "Linking app settings…"
+
+	mkdir -p ~/Library/Application\ Support/Spectacle
 	ln -sF $DIR/settings/spectacle/shortcuts.json ~/Library/Application\ Support/Spectacle/Shortcuts.json
+
+	mkdir -p ~/Library/Application\ Support/Code/User
 	ln -sF $DIR/settings/vscode/*.json ~/Library/Application\ Support/Code/User/
 }
 
@@ -42,13 +42,12 @@ function macos() {
 
 function homebrew() {
 	info "Installing Brew…"
-	command -v brew >/dev/null 2>&1
 
-	if [ $? != 0 ]; then
-		ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-	else
+	if hash brew 2>/dev/null; then
 		echo "Brew already installed"
 		return
+	else
+		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 	fi;
 
 	info "Bundling Brewfile…"
