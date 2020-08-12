@@ -37,7 +37,7 @@ function settings() {
 
 function macos() {
 	info "Applying macOS settings…"
-	./macos
+	./.macos
 }
 
 function homebrew() {
