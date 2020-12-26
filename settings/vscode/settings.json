@@ -17,5 +17,6 @@
     "editor.multiCursorModifier": "alt",
     "go.useLanguageServer": true,
     "liveServer.settings.donotShowInfoMsg": true,
-    "editor.minimap.enabled": false
+    "editor.minimap.enabled": false,
+    "editor.renderControlCharacters": true
   }
