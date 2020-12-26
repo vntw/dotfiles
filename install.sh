@@ -33,6 +33,9 @@ function settings() {
 
 	mkdir -p ~/Library/Application\ Support/Code/User
 	ln -sF $DIR/settings/vscode/*.json ~/Library/Application\ Support/Code/User/
+
+	mkdir -p ~/Library/Containers/com.if.Amphetamine/Data/Library/Preferences
+	ln -sF $DIR/settings/amphetamine/com.if.Amphetamine.plist ~/Library/Containers/com.if.Amphetamine/Data/Library/Preferences/com.if.Amphetamine.plist
 }
 
 function macos() {
