@@ -22,6 +22,7 @@ brew 'yarn'
 brew 'zsh'
 
 tap 'homebrew/cask'
+cask 'cryptomator'
 cask 'disk-inventory-x'
 cask 'firefox'
 cask 'google-chrome'
