@@ -10,7 +10,7 @@ My personal dotfiles using [powerlevel10k](https://github.com/romkatv/powerlevel
 - Copy SSH + GPG keys
 - Checkout and run dotfiles installer (including private dotfiles)
 
-  `git clone git@github.com:venyii/dotfiles.git ~/.dotfiles && ~/.dotfiles/install.sh`
+  `git clone git@github.com:vntw/dotfiles.git ~/.dotfiles && ~/.dotfiles/install.sh`
 
 ## After
 - Open Spectacle and allow A11Y controls

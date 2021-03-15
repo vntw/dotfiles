@@ -86,7 +86,7 @@ function privrepo() {
 	info "Installing \033[0;31mprivate\033[32m repository"
 
 	if [ ! -d ~/.dotfiles-private ]; then
-		git clone git@github.com:venyii/dotfiles-private.git ~/.dotfiles-private
+		git clone git@github.com:vntw/dotfiles-private.git ~/.dotfiles-private
 	else
 		echo "Repository already checked out"
 	fi
