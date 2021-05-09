@@ -18,5 +18,6 @@
     "go.useLanguageServer": true,
     "liveServer.settings.donotShowInfoMsg": true,
     "editor.minimap.enabled": false,
-    "editor.renderControlCharacters": true
+    "editor.renderControlCharacters": true,
+    "explorer.confirmDelete": false
   }
