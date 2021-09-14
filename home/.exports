@@ -39,4 +39,4 @@ export HOMEBREW_NO_ANALYTICS=1
 export GOPATH=~/dev/go
 export GOBIN=~/dev/go/bin
 
-export PATH=$GOBIN:/usr/local/bin:/usr/local/sbin:~/Library/Python/3.7/bin:~/bin:$PATH
+export PATH=$GOBIN:~/dev/flutter/sdk/bin:/usr/local/bin:/usr/local/sbin:~/Library/Python/3.8/bin:~/bin:$PATH
