@@ -20,7 +20,6 @@ brew 'rbenv'
 brew 'tree'
 brew 'watch'
 brew 'wget'
-brew 'zsh'
 
 tap 'homebrew/cask'
 cask 'cryptomator'
