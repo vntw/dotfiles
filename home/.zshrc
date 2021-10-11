@@ -1,6 +1,6 @@
 export ZSH="$HOME/.oh-my-zsh"
 
-plugins=(gitfast z per-directory-history dirhistory)
+plugins=(gitfast z per-directory-history dirhistory zsh-nvm)
 
 typeset -g POWERLEVEL9K_MODE='nerdfont-complete'
 typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir)
