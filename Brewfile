@@ -1,6 +1,5 @@
 tap 'homebrew/bundle'
 tap 'homebrew/core'
-brew 'bazaar'
 brew 'composer'
 brew 'curl'
 brew 'git'
