@@ -15,6 +15,10 @@ function is_intel_mac() {
 	[[ $(uname -m) == x86_64 ]] && is_mac
 }
 
+function is_m_mac() {
+	[[ $(uname -m) == arm64 ]] && is_mac
+}
+
 function is_mac() {
 	[[ $(uname -s) == Darwin* ]]
 }
@@ -42,8 +46,7 @@ function dotfiles() {
 function mac_app_settings() {
 	info "Linking app settings…"
 
-	mkdir -p ~/Library/Application\ Support/
-	cle
+	mkdir -p ~/Library/Application\ Support/Spectacle
 	ln -sF $DIR/settings/spectacle/shortcuts.json ~/Library/Application\ Support/Spectacle/Shortcuts.json
 
 	mkdir -p ~/Library/Application\ Support/Code/User
@@ -51,11 +54,6 @@ function mac_app_settings() {
 
 	mkdir -p ~/Library/Containers/com.if.Amphetamine/Data/Library/Preferences
 	cp $DIR/settings/amphetamine/com.if.Amphetamine.plist ~/Library/Containers/com.if.Amphetamine/Data/Library/Preferences/com.if.Amphetamine.plist
-}
-
-function mac_settings() {
-	info "Applying macOS settings…"
-	./mac-settings.sh
 }
 
 function vscode_extensions() {
@@ -70,7 +68,12 @@ function homebrew() {
 		echo "Brew already installed"
 		return
 	else
-		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+		NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+		if is_m_mac; then
+			(echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> ~/.zprofile
+			eval "$(/opt/homebrew/bin/brew shellenv)"
+		fi
 	fi;
 
 	info "Bundling Brewfile…"
@@ -130,7 +133,6 @@ function install() {
 	if is_mac
 	then
 		mac_app_settings;
-		mac_settings;
 	fi
 
 	vscode_extensions;
@@ -139,11 +141,6 @@ function install() {
 }
 
 function links_only() {
-	if is_mac
-	then
-		mac_settings;
-	fi
-
 	priv_repo;
 	dotfiles;
 	success;
@@ -192,3 +189,4 @@ unset info;
 unset is_mac;
 unset is_intel_mac;
 unset is_linux;
+unset mac_app_settings;
