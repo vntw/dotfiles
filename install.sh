@@ -11,24 +11,35 @@ function info() {
 	echo -e "\n\033[0;32m➤ $1\033[0m"
 }
 
+function is_mac() {
+	[[ $(uname -s) == Darwin* ]]
+}
+
+function is_linux() {
+	[[ $(uname -s) == Linux* ]]
+}
+
 function directories() {
 	info "Creating default directories…"
+
 	mkdir -p ~/bin ~/dev/go ~/.gnupg ~/.ssh
 	chmod 0700 ~/.gnupg ~/.ssh
 }
 
 function dotfiles() {
 	info "Linking dotfiles…"
+
 	for f in $(find "$DIR/home" -type f) ; do
 		echo "$f to ~/${f#"$DIR/home/"}"
 		ln -sF "$f" ~/${f#"$DIR/home/"}
 	done
 }
 
-function settings() {
+function mac_app_settings() {
 	info "Linking app settings…"
 
-	mkdir -p ~/Library/Application\ Support/Spectacle
+	mkdir -p ~/Library/Application\ Support/
+	cle
 	ln -sF $DIR/settings/spectacle/shortcuts.json ~/Library/Application\ Support/Spectacle/Shortcuts.json
 
 	mkdir -p ~/Library/Application\ Support/Code/User
@@ -38,9 +49,14 @@ function settings() {
 	cp $DIR/settings/amphetamine/com.if.Amphetamine.plist ~/Library/Containers/com.if.Amphetamine/Data/Library/Preferences/com.if.Amphetamine.plist
 }
 
-function macos() {
+function mac_settings() {
 	info "Applying macOS settings…"
-	./.macos
+	./mac-settings.sh
+}
+
+function vscode_extensions() {
+	info "Installing VSCode extensions…"
+	./vscode-extensions.sh
 }
 
 function homebrew() {
@@ -72,7 +88,7 @@ function zsh() {
 	info "Setting up zsh"
 
 	if [ -d ~/.oh-my-zsh ]; then
-		echo "zsh already installed"
+		echo "oh-my-zsh already installed"
 		return
 	fi
 
@@ -86,7 +102,7 @@ function zsh() {
 	git clone --depth=1 https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/zsh-nvm
 }
 
-function privrepo() {
+function priv_repo() {
 	info "Installing \033[0;31mprivate\033[32m repository"
 
 	if [ ! -d ~/.dotfiles-private ]; then
@@ -101,19 +117,30 @@ function privrepo() {
 function install() {
 	sudo -v
 
-	privrepo;
+	priv_repo;
 	directories;
 	homebrew;
 	dotfiles;
 	zsh;
-	settings;
-	macos;
+
+	if is_mac
+	then
+		mac_app_settings;
+		mac_macos;
+	fi
+
+	vscode_extensions;
+
 	success;
 }
 
-function linksonly() {
-	settings;
-	privrepo;
+function links_only() {
+	if is_mac
+	then
+		settings_mac;
+	fi
+
+	priv_repo;
 	dotfiles;
 	success;
 }
@@ -122,7 +149,7 @@ function success() {
 	info "Successfully installed!"
 }
 
-function helpmenu() {
+function help_menu() {
 	cat << EOF
 Usage: ./install.sh [--help|-h] [--only-links]
 
@@ -134,11 +161,11 @@ while [ ! $# -eq 0 ]
 do
 	case "$1" in
 		--help | -h)
-			helpmenu;
+			help_menu;
 			exit
 			;;
 		--only-links)
-			linksonly;
+			links_only;
 			exit
 			;;
 	esac
@@ -148,13 +175,15 @@ done
 install;
 
 unset success;
-unset linksonly;
-unset privrepo;
+unset links_only;
+unset priv_repo;
 unset directories;
 unset macos;
 unset dotfiles;
 unset zsh;
 unset homebrew;
-unset helpmenu;
+unset help_menu;
 unset install;
 unset info;
+unset is_mac;
+unset is_linux;

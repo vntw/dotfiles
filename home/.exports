@@ -32,8 +32,9 @@ export MANPAGER='less -X';
 # Disable CocoaPods stats tracking
 export COCOAPODS_DISABLE_STATS=true
 
-# Disable Brew analytics
+# Disable analytics
 export HOMEBREW_NO_ANALYTICS=1
+export SHOPIFY_CLI_NO_ANALYTICS=1
 
 # Golang
 export GOPATH=~/dev/go

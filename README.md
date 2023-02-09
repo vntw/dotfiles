@@ -19,7 +19,3 @@ My personal dotfiles using [powerlevel10k](https://github.com/romkatv/powerlevel
   - Modifier keys
 - Menu bar icons
 - Wallpaper/User Icon/Screensaver
-- Install VS Code extensions
-
-## Credits
-* [mathiasbynens/dotfiles](https://github.com/mathiasbynens/dotfiles)
