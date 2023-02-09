@@ -11,6 +11,10 @@ function info() {
 	echo -e "\n\033[0;32m➤ $1\033[0m"
 }
 
+function is_intel_mac() {
+	[[ $(uname -m) == x86_64 ]] && is_mac
+}
+
 function is_mac() {
 	[[ $(uname -s) == Darwin* ]]
 }
@@ -74,7 +78,7 @@ function homebrew() {
 	brew cleanup
 
 	# change shell to updated brew zsh
-	local shell_path="/usr/local/bin/zsh"
+	local shell_pathx=$([ is_intel_mac ] && echo "/usr/local/bin/zsh" || echo "/opt/homebrew/bin")
 	info "Changing shell to '$shell_path'"
 	if [ $SHELL != $shell_path ]; then
 		if ! grep "$shell_path" /etc/shells > /dev/null 2>&1 ; then
@@ -119,14 +123,14 @@ function install() {
 
 	priv_repo;
 	directories;
+	zsh;
 	homebrew;
 	dotfiles;
-	zsh;
 
 	if is_mac
 	then
 		mac_app_settings;
-		mac_macos;
+		mac_settings;
 	fi
 
 	vscode_extensions;
@@ -137,7 +141,7 @@ function install() {
 function links_only() {
 	if is_mac
 	then
-		settings_mac;
+		mac_settings;
 	fi
 
 	priv_repo;
@@ -186,4 +190,5 @@ unset help_menu;
 unset install;
 unset info;
 unset is_mac;
+unset is_intel_mac;
 unset is_linux;
