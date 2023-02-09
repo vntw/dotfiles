@@ -21,7 +21,7 @@ brew 'watch'
 brew 'wget'
 
 tap 'homebrew/cask'
-brew '1password-cli'
+cask '1password-cli'
 cask 'cryptomator'
 #cask 'devcleaner'
 cask 'disk-inventory-x'
