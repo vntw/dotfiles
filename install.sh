@@ -7,25 +7,7 @@ set -eu
 DIR="$(cd `dirname $0` && pwd)"
 cd "$DIR"
 
-function info() {
-	echo -e "\n\033[0;32m➤ $1\033[0m"
-}
-
-function is_intel_mac() {
-	[[ $(uname -m) == x86_64 ]] && is_mac
-}
-
-function is_m_mac() {
-	[[ $(uname -m) == arm64 ]] && is_mac
-}
-
-function is_mac() {
-	[[ $(uname -s) == Darwin* ]]
-}
-
-function is_linux() {
-	[[ $(uname -s) == Linux* ]]
-}
+source helpers.sh
 
 function directories() {
 	info "Creating default directories…"
@@ -67,20 +49,20 @@ function homebrew() {
 	if hash brew 2>/dev/null; then
 		echo "Brew already installed"
 		return
-	else
-		NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+	fi
 
-		if is_m_mac; then
-			(echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> ~/.zprofile
-			eval "$(/opt/homebrew/bin/brew shellenv)"
-		fi
-	fi;
+	NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+	if is_m_mac; then
+		(echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> ~/.zprofile
+		eval "$(/opt/homebrew/bin/brew shellenv)"
+	fi
 
 	info "Bundling Brewfile…"
 	brew bundle --file=./Brewfile
 	brew cleanup
 
-	# change shell to updated brew zsh
+	# Change shell to updated brew zsh
 	local shell_path=$([ is_intel_mac ] && echo "/usr/local/bin/zsh" || echo "/opt/homebrew/bin")
 	info "Changing shell to '$shell_path'"
 	if [ $SHELL != $shell_path ]; then
