@@ -23,6 +23,12 @@ function dotfiles() {
 		echo "$f to ~/${f#"$DIR/home/"}"
 		ln -sF "$f" ~/${f#"$DIR/home/"}
 	done
+
+	# TODO: Linux
+	if is_intel_mac
+	then
+		sed "s#__PINENTRY_PATH__#/usr/local/bin/pinentry-mac#" ~/.gnupg/gpg-agent.tpl.conf > ~/.gnupg/gpg-agent.conf
+	fi
 }
 
 function mac_app_settings() {
