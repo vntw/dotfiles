@@ -81,7 +81,7 @@ function homebrew() {
 	brew cleanup
 
 	# change shell to updated brew zsh
-	local shell_pathx=$([ is_intel_mac ] && echo "/usr/local/bin/zsh" || echo "/opt/homebrew/bin")
+	local shell_path=$([ is_intel_mac ] && echo "/usr/local/bin/zsh" || echo "/opt/homebrew/bin")
 	info "Changing shell to '$shell_path'"
 	if [ $SHELL != $shell_path ]; then
 		if ! grep "$shell_path" /etc/shells > /dev/null 2>&1 ; then
