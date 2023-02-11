@@ -121,9 +121,32 @@ function priv_repo() {
 	~/.dotfiles-private/install.sh
 }
 
+function set_hostname() {
+	current_hostname=$(hostname)
+	# Set computer name (as done via System Preferences → Sharing)
+	echo "Enter the hostname for this machine (leave empty to skip, current: $current_hostname):"
+	read hostname
+	hostname=${hostname// }
+
+	if [ ! -z "${hostname}" ] ; then
+		if is_mac
+		then
+			sudo scutil --set ComputerName "${hostname}"
+			sudo scutil --set HostName "${hostname}"
+			sudo scutil --set LocalHostName "${hostname}"
+			sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "${hostname}"
+		else
+			sudo hostnamectl set-hostname "${hostname}"
+		fi
+	else
+		echo "Skipping hostname process…"
+	fi
+}
+
 function install() {
 	sudo -v
 
+	set_hostname;
 	priv_repo;
 	directories;
 	zsh;
@@ -184,6 +207,7 @@ unset dotfiles;
 unset zsh;
 unset homebrew;
 unset help_menu;
+unset set_hostname;
 unset install;
 unset info;
 unset is_mac;

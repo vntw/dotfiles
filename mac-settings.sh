@@ -7,20 +7,6 @@ osascript -e 'tell application "System Preferences" to quit'
 # Keep-alive: update existing `sudo` time stamp until this has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-# Set computer name (as done via System Preferences → Sharing)
-echo "Enter the hostname for this machine (leave empty to skip):"
-read hostname
-hostname=${hostname// }
-
-if [ ! -z "${hostname}" ] ; then
-	sudo scutil --set ComputerName "${hostname}"
-	sudo scutil --set HostName "${hostname}"
-	sudo scutil --set LocalHostName "${hostname}"
-	sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "${hostname}"
-else
-	echo "Skipping hostname process..."
-fi
-
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
