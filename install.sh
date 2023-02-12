@@ -12,7 +12,7 @@ source helpers.sh
 function directories() {
 	info "Creating default directories…"
 
-	mkdir -p ~/bin ~/dev/go ~/.gnupg ~/.ssh
+	mkdir -p ~/bin ~/dev/{go,flutter} ~/.gnupg ~/.ssh
 	chmod 0700 ~/.gnupg ~/.ssh
 }
 
