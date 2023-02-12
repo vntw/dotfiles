@@ -3,6 +3,7 @@ code --install-extension astro-build.astro-vscode
 code --install-extension eseom.nunjucks-template
 code --install-extension golang.go
 code --install-extension hashicorp.terraform
+code --install-extension usernamehw.errorlens
 code --install-extension k--kato.intellij-idea-keybindings
 code --install-extension ms-azuretools.vscode-docker
 code --install-extension rust-lang.rust-analyzer
