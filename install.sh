@@ -34,9 +34,6 @@ function dotfiles() {
 function mac_app_settings() {
 	info "Linking app settings…"
 
-	mkdir -p ~/Library/Application\ Support/Spectacle
-	ln -sF $DIR/settings/spectacle/shortcuts.json ~/Library/Application\ Support/Spectacle/Shortcuts.json
-
 	mkdir -p ~/Library/Application\ Support/Code/User
 	ln -sF $DIR/settings/vscode/*.json ~/Library/Application\ Support/Code/User/
 

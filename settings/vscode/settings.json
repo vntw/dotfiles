@@ -19,5 +19,8 @@
     "liveServer.settings.donotShowInfoMsg": true,
     "editor.minimap.enabled": false,
     "editor.renderControlCharacters": true,
-    "explorer.confirmDelete": false
+    "explorer.confirmDelete": false,
+    "[go]": {
+      "editor.formatOnSave": true
+    }
   }
