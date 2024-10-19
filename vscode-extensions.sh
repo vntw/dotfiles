@@ -9,4 +9,5 @@ code --install-extension ms-azuretools.vscode-docker
 code --install-extension rust-lang.rust-analyzer
 code --install-extension syler.sass-indented
 code --install-extension tamasfe.even-better-toml
+code --install-extension usernamehw.errorlens
 code --install-extension waderyan.gitblame

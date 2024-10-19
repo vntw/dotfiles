@@ -22,12 +22,28 @@
     },
     {
         "key": "ctrl+cmd+[Backslash]",
-        "command": "editor.action.commentLine",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "editor.action.commentLine",
+                "cursorDown"
+            ]
+        },
         "when": "editorTextFocus && !editorReadonly"
     },
     {
         "key": "shift+cmd+7",
         "command": "-editor.action.commentLine",
         "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "f9",
+        "command": "workbench.action.debug.continue",
+        "when": "debugState == 'stopped'"
+    },
+    {
+        "key": "f5",
+        "command": "-workbench.action.debug.continue",
+        "when": "debugState == 'stopped'"
     }
 ]

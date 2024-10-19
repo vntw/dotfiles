@@ -14,7 +14,6 @@
     "files.insertFinalNewline": true,
     "explorer.confirmDragAndDrop": false,
     "go.autocompleteUnimportedPackages": true,
-    "editor.multiCursorModifier": "alt",
     "go.useLanguageServer": true,
     "liveServer.settings.donotShowInfoMsg": true,
     "editor.minimap.enabled": false,
@@ -22,5 +21,8 @@
     "explorer.confirmDelete": false,
     "[go]": {
       "editor.formatOnSave": true
-    }
+    },
+    "extensions.ignoreRecommendations": true,
+    "git.openRepositoryInParentFolders": "never",
+    "editor.stickyScroll.enabled": true
   }
