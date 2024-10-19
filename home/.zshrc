@@ -22,6 +22,8 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_REDUCE_BLANKS
 
 zstyle ':completion:*' special-dirs true
+zstyle ':omz:update' frequency 90
+#zstyle ':omz:update' mode disabled
 
 for file in ~/.{aliases,exports,functions}; do
 	source "$file";
