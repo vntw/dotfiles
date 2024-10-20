@@ -32,14 +32,37 @@ export MANPAGER='less -X';
 # Disable CocoaPods stats tracking
 export COCOAPODS_DISABLE_STATS=true
 
+# Ruby
+export GEM_HOME=$HOME/.gem
+export PATH=$GEM_HOME/ruby/2.6.0/bin:$PATH
+
 # Disable analytics
 export HOMEBREW_NO_ANALYTICS=1
 export SHOPIFY_CLI_NO_ANALYTICS=1
 export NEXT_TELEMETRY_DISABLED=1
 export GATSBY_TELEMETRY_DISABLED=1
+export ASTRO_TELEMETRY_DISABLED=1
 
 # Golang
 export GOPATH=~/dev/go
 export GOBIN=~/dev/go/bin
 
-export PATH=$GOBIN:~/dev/flutter/bin:/usr/local/bin:/usr/local/sbin:~/Library/Python/3.8/bin:~/bin:$PATH
+export PATH=$GOBIN:~/dev/flutter/bin:/usr/local/bin:/usr/local/sbin:~/bin:$PATH
+
+# pyenv
+eval "$(pyenv init -)"
+
+# time fmt
+if [[ `uname` == Darwin ]]; then
+    MAX_MEMORY_UNITS=KB
+else
+    MAX_MEMORY_UNITS=MB
+fi
+
+export TIMEFMT='%J   %U  user %S system %P cpu %*E total'$'\n'\
+'avg shared (code):         %X KB'$'\n'\
+'avg unshared (data/stack): %D KB'$'\n'\
+'total (sum):               %K KB'$'\n'\
+'max memory:                %M '$MAX_MEMORY_UNITS''$'\n'\
+'page faults from disk:     %F'$'\n'\
+'other page faults:         %R'
